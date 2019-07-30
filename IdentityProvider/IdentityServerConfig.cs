@@ -35,6 +35,26 @@ namespace IdentityProvider
                 };
             }
         }
-        public static List<TestUser> TestUsers { get; internal set; }
+        public static List<TestUser> TestUsers
+        {
+            get
+            {
+                return new List<TestUser>
+                {
+                    new TestUser()
+                    {
+                        SubjectId="1",
+                        Username = "user1",
+                        Password = "pass"
+                    },
+                    new TestUser()
+                    {
+                        SubjectId="2",
+                        Username = "user2",
+                        Password = "pass"
+                    }
+                };
+            }
+        }
     }
 }
