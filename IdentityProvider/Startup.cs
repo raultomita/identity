@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,12 +34,11 @@ namespace IdentityProvider
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddIdentityServer()
+            services.AddIdentityServer(setup=> setup.UserInteraction.LoginUrl = "/Home/Login")
                 .AddInMemoryClients(IdentityServerConfig.Clients)
                 .AddInMemoryApiResources(IdentityServerConfig.Resources)
                 .AddTestUsers(IdentityServerConfig.TestUsers)
                 .AddDeveloperSigningCredential();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +54,7 @@ namespace IdentityProvider
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

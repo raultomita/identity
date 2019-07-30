@@ -8,3 +8,6 @@
     It does not handle the authentication. Only needs the access token to forward it to Resource server.
 - Authorization server
     - It is does the havy lifting in terms of authentication. It is issuing authentication tokens and authenticate users.
+	
+	Authorization Grants:
+	- How can I use them.
