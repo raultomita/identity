@@ -51,16 +51,23 @@ namespace IdentityProvider.Controllers
             if (!ModelState.IsValid) return View(loginModel);
 
             TestUser user = userStore.FindByUsername(loginModel.Username);
-            if(user == null)
+
+            if (user == null)
             {
                 ModelState.AddModelError("UserName", "User name does not exist");
                 return View(loginModel);
             }
 
-            AuthenticationProperties props = null;
-            await HttpContext.SignInAsync(user.SubjectId, user.Username, props);
+            await HttpContext.SignInAsync(user.SubjectId, user.Username);
 
             return RedirectToAction("Index");
-        }    
+        }
+
+        public IActionResult SignOut()
+        {
+            HttpContext.SignOutAsync();
+
+            return RedirectToAction("Login");
+        }
     }
 }
